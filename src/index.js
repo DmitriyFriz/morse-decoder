@@ -37,8 +37,29 @@ const MORSE_TABLE = {
     '-----':  '0',
 };
 
+const DECODING_TABLE = {
+  '10': '.',
+  '11': '-',
+  '00': '',
+}
+
 function decode(expr) {
-    // write your solution here
+  let phrase = '';
+  let arr = expr.match(/(.{1,10})/gi);
+
+  for (str of arr) {
+    if (str == '**********'){
+      phrase += ' ' ;
+      continue;
+    }
+    let arrWithCodes = str.match(/(.{1,2})/gi);
+    let char = '';
+    for (code of arrWithCodes) {
+      char += DECODING_TABLE[code];
+    }
+    phrase += MORSE_TABLE[char];
+  }
+  return phrase;
 }
 
 module.exports = {
